@@ -88,12 +88,7 @@ Dans un environnement bancaire de plus en plus compétitif et fortement régleme
 % Commentaire: Cette section explique les objectifs spécifiques que le projet cherche à atteindre
 \section*{Objectifs du projet}
 Ce projet vise à doter la banque d'une plateforme intégrée permettant:
-\begin{itemize}
-    \item L'analyse précise et en temps réel des risques de liquidité et de taux d'intérêt
-    \item La génération automatisée de rapports réglementaires conformes aux exigences de la banque centrale
-    \item L'optimisation du bilan bancaire pour maximiser la rentabilité tout en respectant les contraintes prudentielles
-    \item Le support à la prise de décision stratégique par des simulations et analyses de scénarios
-\end{itemize}
+Ce projet vise à doter la banque d'une plateforme intégrée permettant l'analyse précise et en temps réel des risques de liquidité et de taux d'intérêt. Il assurera également la génération automatisée de rapports réglementaires conformes aux exigences de la banque centrale. La solution permettra l'optimisation du bilan bancaire pour maximiser la rentabilité tout en respectant les contraintes prudentielles. Enfin, elle offrira un support à la prise de décision stratégique par des simulations et analyses de scénarios.
 
 % Commentaire: Présentation générale de la solution proposée
 \section*{Présentation de la solution}
@@ -109,12 +104,7 @@ La Banque de Tunisie et des Émirats (BTE) est une institution financière opér
 
 \subsection{Clients}
 La clientèle de la BTE se compose principalement de:
-\begin{itemize}
-    \item Particuliers: services bancaires quotidiens, crédits immobiliers, prêts personnels
-    \item Entreprises: financement d'investissements, gestion de trésorerie, opérations internationales
-    \item Institutionnels: gestion d'actifs, services de banque d'investissement
-    \item Clients VIP: services bancaires privés et gestion de fortune
-\end{itemize}
+La clientèle de la BTE se compose principalement de plusieurs segments. Les particuliers bénéficient des services bancaires quotidiens, crédits immobiliers et prêts personnels. Les entreprises constituent un segment important avec des besoins en financement d'investissements, gestion de trésorerie et opérations internationales. Les clients institutionnels représentent un autre segment clé, recherchant des services de gestion d'actifs et de banque d'investissement. Enfin, les clients VIP forment un segment privilégié pour lequel la banque propose des services bancaires privés et de gestion de fortune.
 
 % Commentaire: Explique le cadre dans lequel s'inscrit le projet et la problématique qu'il adresse
 \section{Contexte Général du projet}
@@ -124,13 +114,7 @@ Ce projet s'inscrit dans une démarche stratégique de modernisation des outils 
 
 \subsection{Problématique}
 La BTE fait face à plusieurs défis majeurs:
-\begin{itemize}
-    \item Des processus manuels et chronophages pour la production des rapports réglementaires
-    \item Une vision fragmentée des risques de bilan due à des systèmes cloisonnés
-    \item Des difficultés à effectuer des projections précises et des analyses de scénarios
-    \item Un manque d'outils adaptés pour le suivi de la liquidité et la gestion du risque de taux
-    \item Des contraintes croissantes de conformité réglementaire nécessitant une approche plus sophistiquée
-\end{itemize}
+La BTE fait face à plusieurs défis majeurs. Premièrement, elle doit composer avec des processus manuels et chronophages pour la production des rapports réglementaires. Deuxièmement, elle souffre d'une vision fragmentée des risques de bilan due à des systèmes cloisonnés. Troisièmement, la banque rencontre des difficultés à effectuer des projections précises et des analyses de scénarios. Quatrièmement, elle manque d'outils adaptés pour le suivi de la liquidité et la gestion du risque de taux. Enfin, elle doit répondre à des contraintes croissantes de conformité réglementaire nécessitant une approche plus sophistiquée.
 
 % Commentaire: Analyse des solutions existantes sur le marché et leurs limitations
 \section{Étude de l'existant}
@@ -139,76 +123,38 @@ La BTE fait face à plusieurs défis majeurs:
 Notre étude a porté sur deux solutions ALM couramment utilisées dans le secteur bancaire:
 
 \subsubsection{Solution A: Moody's Analytics ALM}
-\begin{itemize}
-    \item Points forts: Modélisation avancée, intégration avec les systèmes de notation, capacités de projection sophistiquées
-    \item Points faibles: Coût très élevé, complexité d'implémentation, personnalisation limitée
-\end{itemize}
+Cette solution présente plusieurs points forts, notamment une modélisation avancée, une intégration avec les systèmes de notation, et des capacités de projection sophistiquées. Néanmoins, elle comporte également des points faibles significatifs, tels qu'un coût très élevé, une complexité d'implémentation importante, et une personnalisation limitée.
 
 \subsubsection{Solution B: Oracle OFSA}
-\begin{itemize}
-    \item Points forts: Robustesse, large couverture fonctionnelle, évolutivité
-    \item Points faibles: Interface utilisateur datée, nécessité d'expertise spécifique, temps d'implémentation long
-\end{itemize}
+Cette solution se distingue par ses points forts que sont sa robustesse, sa large couverture fonctionnelle et son évolutivité. Toutefois, elle présente des inconvénients notables, notamment une interface utilisateur datée, la nécessité d'une expertise spécifique et un temps d'implémentation particulièrement long.
 
 \subsection{Critique de l'existant}
 Les solutions actuellement disponibles sur le marché présentent plusieurs limitations pour le contexte spécifique de la BTE:
-\begin{itemize}
-    \item Inadéquation avec l'échelle et les besoins spécifiques d'une banque de taille moyenne
-    \item Difficulté d'adaptation au contexte réglementaire tunisien
-    \item Coûts prohibitifs de licence et d'implémentation
-    \item Complexité technique nécessitant des ressources spécialisées
-    \item Manque de flexibilité pour l'évolution future
-\end{itemize}
+Les solutions actuellement disponibles sur le marché présentent plusieurs limitations pour le contexte spécifique de la BTE. Elles sont souvent inadaptées à l'échelle et aux besoins spécifiques d'une banque de taille moyenne. Elles rencontrent également des difficultés d'adaptation au contexte réglementaire tunisien. Les coûts prohibitifs de licence et d'implémentation constituent un autre frein important. La complexité technique de ces solutions nécessite des ressources spécialisées dont la banque ne dispose pas nécessairement. Enfin, leur manque de flexibilité limite les possibilités d'évolution future selon les besoins changeants de l'institution.
 
 % Commentaire: Présentation générale de la solution proposée et ses avantages
 \section{Solution Proposée}
 Notre proposition consiste en une solution ALM sur mesure, développée spécifiquement pour répondre aux besoins de la BTE. Cette solution se distingue par:
-\begin{itemize}
-    \item Une approche modulaire permettant une implémentation progressive
-    \item Une interface utilisateur moderne et intuitive adaptée aux utilisateurs métier
-    \item Des fonctionnalités spécifiquement conçues pour le marché tunisien
-    \item Un coût total de possession optimisé
-    \item Une architecture technique favorisant l'évolutivité et la maintenance
-\end{itemize}
+Notre proposition consiste en une solution ALM sur mesure, développée spécifiquement pour répondre aux besoins de la BTE. Cette solution se distingue par une approche modulaire permettant une implémentation progressive selon les priorités de la banque. Elle offre une interface utilisateur moderne et intuitive spécialement adaptée aux utilisateurs métier. Les fonctionnalités ont été spécifiquement conçues pour répondre aux exigences du marché tunisien et de son cadre réglementaire. Le coût total de possession a été optimisé pour correspondre aux ressources disponibles. Enfin, l'architecture technique a été pensée pour favoriser l'évolutivité et faciliter la maintenance sur le long terme.
 
 % Commentaire: Explication de la méthodologie de gestion de projet choisie
 \section{Méthodologie de Gestion de Projet}
 
 \subsection{Méthodologie Agile}
 Les méthodologies agiles se caractérisent par:
-\begin{itemize}
-    \item Développement itératif et incrémental
-    \item Priorité donnée à la collaboration client
-    \item Adaptabilité aux changements
-    \item Livraisons fréquentes de fonctionnalités
-\end{itemize}
+Les méthodologies agiles se caractérisent par plusieurs principes fondamentaux. Elles privilégient un développement itératif et incrémental qui permet d'affiner progressivement la solution. Elles accordent une priorité élevée à la collaboration avec le client, impliqué tout au long du processus. Elles se distinguent également par leur forte adaptabilité aux changements, permettant de réorienter le projet selon les besoins évolutifs. Enfin, elles favorisent des livraisons fréquentes de fonctionnalités, apportant rapidement de la valeur aux utilisateurs.
 
 \subsection{Méthodes Classiques}
 Les approches traditionnelles (cycle en V, cascade) présentent:
-\begin{itemize}
-    \item Une planification détaillée en amont
-    \item Des phases séquentielles bien définies
-    \item Une documentation exhaustive
-    \item Un contrôle strict des modifications
-\end{itemize}
+Les approches traditionnelles (cycle en V, cascade) présentent des caractéristiques bien distinctes. Elles reposent sur une planification détaillée réalisée en amont du projet, définissant l'ensemble des activités à mener. Elles s'organisent en phases séquentielles bien définies, chacune devant être complétée avant de passer à la suivante. Elles accordent une grande importance à la production d'une documentation exhaustive à chaque étape. Enfin, elles imposent un contrôle strict des modifications pour maintenir la cohérence avec la planification initiale.
 
 \subsection{Méthodologie Adoptée}
 Pour ce projet, nous avons adopté la méthodologie SCRUM, une approche agile particulièrement adaptée au contexte, car elle:
-\begin{itemize}
-    \item Permet une grande réactivité face aux évolutions des besoins
-    \item Favorise l'implication continue des utilisateurs finaux
-    \item Offre une visibilité constante sur l'avancement
-    \item Réduit les risques par des livraisons progressives
-\end{itemize}
+Pour ce projet, nous avons adopté la méthodologie SCRUM, une approche agile particulièrement adaptée au contexte. Cette méthodologie permet une grande réactivité face aux évolutions des besoins, ce qui est crucial dans un environnement bancaire en constante mutation. Elle favorise également l'implication continue des utilisateurs finaux, garantissant ainsi l'adéquation de la solution avec les attentes réelles. Par ailleurs, elle offre une visibilité constante sur l'avancement du projet grâce à ses cérémonies régulières. Enfin, elle réduit considérablement les risques grâce à une approche de livraisons progressives qui permet de valider régulièrement les choix effectués.
 
 \subsection{Présentation SCRUM}
 Le cadre SCRUM s'articule autour de:
-\begin{itemize}
-    \item Des rôles clairement définis: Product Owner, Scrum Master, Équipe de développement
-    \item Des événements structurants: Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective
-    \item Des artefacts clés: Product Backlog, Sprint Backlog, Incrément
-    \item Des cycles de développement courts (Sprints) de 2 à 4 semaines
-\end{itemize}
+Le cadre SCRUM s'articule autour de plusieurs éléments fondamentaux. Il définit des rôles clairement établis, notamment le Product Owner qui représente les intérêts métier, le Scrum Master qui facilite le processus, et l'Équipe de développement qui conçoit et réalise la solution. Ce cadre est rythmé par des événements structurants comme le Sprint Planning pour préparer l'itération, le Daily Scrum pour la coordination quotidienne, la Sprint Review pour évaluer le produit livré, et la Sprint Retrospective pour améliorer continuellement le processus. Il s'appuie sur des artefacts clés tels que le Product Backlog qui liste toutes les fonctionnalités souhaitées, le Sprint Backlog qui détaille les tâches de l'itération en cours, et l'Incrément qui représente la valeur ajoutée à chaque sprint. Enfin, il organise le travail en cycles de développement courts, appelés Sprints, d'une durée de 2 à 4 semaines, permettant des feedbacks réguliers.
 
 % Planification et analyse des besoins
 \chapter{PLANIFICATION ET ANALYSE DES BESOINS}
