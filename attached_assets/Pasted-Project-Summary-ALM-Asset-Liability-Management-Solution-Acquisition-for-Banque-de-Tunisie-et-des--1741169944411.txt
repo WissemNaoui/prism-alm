@@ -1,0 +1,65 @@
+Project Summary: ALM (Asset Liability Management) Solution Acquisition for Banque de Tunisie et des Emirats (BTE)
+
+This document is a "Cahier des Charges" (Terms of Reference) for an international tender (Appel d'Offres International) issued by Banque de Tunisie et des Emirats (BTE) for the acquisition, implementation, and maintenance of an Asset Liability Management (ALM) solution. The BTE seeks an integrated ALM solution to enhance its risk management capabilities, align with regulatory requirements, and improve strategic financial planning.
+
+Key Project Details
+
+    Issuer: Banque de Tunisie et des Emirats (BTE)
+
+    Project Goal: Acquire, implement, and maintain a comprehensive ALM solution (software and services)
+
+    Objective:
+
+        Align with regulatory requirements (Bâle III, BCT Directives)
+
+        Improve the bank's risk management framework (Liquidity, Interest Rate, Market, Concentration Risks)
+
+        Enhance financial planning, performance monitoring, and profitability analysis
+
+        Automate regulatory reporting
+
+        Support the bank's ALCO (Asset Liability Committee) processes
+
+    Key Functional Requirements:
+
+        Automated data extraction from core banking and other systems
+
+        Management of Market Risk.
+
+        Management of Liquidity Risk.
+
+        Management of Concentration Risk.
+
+        Gap Analysis (Static and Dynamic)
+
+        Stress Testing
+
+        Appetite to risk
+
+        Generation of Reporting
+
+    Technical Requirements:
+
+        3-Tier Architecture, Full Web based
+
+        Support for On-Premise, Cloud Public (SaaS), and Cloud Private (SaaS) deployment models
+
+        Integration with Active Directory (AD)
+
+        Role-based access control
+
+        Support for French and English languages
+
+    Project Timeline: The implementation duration of the solution should not be exceed six (06) months, as of the signature date of the contract/letter of mission.
+
+    Offer Validity: Bids must remain valid for 90 days from the submission deadline, with a potential extension of 30 days after contract notification.
+
+    Offer Structure: Separate envelopes required for administrative, financial, and technical proposals.
+
+    Submission Deadline: 14/03/2025 à 14 heures.
+
+    Address: Boulevard Beji Caid Essebsi Lot AFH – BC8 Centre Urbain Nord – 1082 Tunis
+
+    Budget: 2 500 DT
+
+Let me know if you want me to elaborate on any specific area!
