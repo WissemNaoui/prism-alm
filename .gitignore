@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyd
+*.egg-info
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.cjs
+
+# Backend
+backend/uv.lock
+backend/.env
+backend/.venv
+
+# Front end
+frontend/.env
+
+#vscode
+.vscode/
