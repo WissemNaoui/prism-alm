@@ -1,0 +1,558 @@
+
+\documentclass[12pt,a4paper]{report}
+
+% Packages nécessaires
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% Configuration de la page
+\geometry{margin=2.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% Configuration des entêtes et pieds de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Solution ALM}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{Banque de Tunisie et des Émirats}
+
+% Configuration des titres
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{50pt}{40pt}
+
+% Configuration des couleurs pour le code
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Informations du document
+\title{\Huge\textbf{Rapport de Projet\\
+Solution de Gestion Actif-Passif (ALM)\\
+pour la Banque de Tunisie et des Émirats}}
+\author{Équipe de Développement}
+\date{\today}
+
+% Début du document
+\begin{document}
+
+% Page de titre
+\maketitle
+\thispagestyle{empty}
+
+% Table des matières
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+% Introduction générale
+\chapter*{INTRODUCTION GÉNÉRALE}
+\addcontentsline{toc}{chapter}{INTRODUCTION GÉNÉRALE}
+
+% Commentaire: Cette section présente le contexte général du projet et son importance pour la banque
+\section*{Contexte et enjeux}
+Dans un environnement bancaire de plus en plus compétitif et fortement réglementé, la gestion efficace des actifs et passifs (Asset-Liability Management ou ALM) représente un enjeu stratégique majeur pour les institutions financières. La Banque de Tunisie et des Émirats, cherchant à renforcer sa position sur le marché, a initié ce projet d'implémentation d'une solution ALM moderne et complète.
+
+% Commentaire: Cette section explique les objectifs spécifiques que le projet cherche à atteindre
+\section*{Objectifs du projet}
+Ce projet vise à doter la banque d'une plateforme intégrée permettant:
+\begin{itemize}
+    \item L'analyse précise et en temps réel des risques de liquidité et de taux d'intérêt
+    \item La génération automatisée de rapports réglementaires conformes aux exigences de la banque centrale
+    \item L'optimisation du bilan bancaire pour maximiser la rentabilité tout en respectant les contraintes prudentielles
+    \item Le support à la prise de décision stratégique par des simulations et analyses de scénarios
+\end{itemize}
+
+% Commentaire: Présentation générale de la solution proposée
+\section*{Présentation de la solution}
+La solution développée se compose d'une application web moderne avec une architecture client-serveur. Le frontend offre une interface utilisateur intuitive basée sur React et Tailwind CSS, tandis que le backend, développé avec FastAPI, assure le traitement des données et l'intégration avec les systèmes existants de la banque. L'ensemble forme une plateforme cohérente qui répond aux besoins métier tout en garantissant performance, sécurité et évolutivité.
+
+% Cadre général du projet
+\chapter{CADRE GÉNÉRAL DU PROJET}
+
+% Commentaire: Description de la banque, son profil et ses activités
+\section{Présentation de l'organisme d'accueil}
+\subsection{Activités}
+La Banque de Tunisie et des Émirats (BTE) est une institution financière opérant principalement en Tunisie avec des liens étroits avec les Émirats Arabes Unis. Fondée en 1982, elle offre une gamme complète de services bancaires incluant les opérations de détail, les services aux entreprises, la gestion de patrimoine et les opérations de marché. Avec un réseau d'agences couvrant les principales villes tunisiennes, la BTE se positionne comme un acteur de taille moyenne mais dynamique dans le paysage bancaire tunisien.
+
+\subsection{Clients}
+La clientèle de la BTE se compose principalement de:
+\begin{itemize}
+    \item Particuliers: services bancaires quotidiens, crédits immobiliers, prêts personnels
+    \item Entreprises: financement d'investissements, gestion de trésorerie, opérations internationales
+    \item Institutionnels: gestion d'actifs, services de banque d'investissement
+    \item Clients VIP: services bancaires privés et gestion de fortune
+\end{itemize}
+
+% Commentaire: Explique le cadre dans lequel s'inscrit le projet et la problématique qu'il adresse
+\section{Contexte Général du projet}
+
+\subsection{Cadre du projet}
+Ce projet s'inscrit dans une démarche stratégique de modernisation des outils de gestion financière de la BTE. Face aux évolutions réglementaires (notamment Bâle III), aux enjeux de compétitivité et aux défis économiques, la banque a identifié le besoin de renforcer ses capacités d'analyse et de pilotage de son bilan. Le projet a été initié suite à un audit interne qui a révélé des limitations dans les outils existants.
+
+\subsection{Problématique}
+La BTE fait face à plusieurs défis majeurs:
+\begin{itemize}
+    \item Des processus manuels et chronophages pour la production des rapports réglementaires
+    \item Une vision fragmentée des risques de bilan due à des systèmes cloisonnés
+    \item Des difficultés à effectuer des projections précises et des analyses de scénarios
+    \item Un manque d'outils adaptés pour le suivi de la liquidité et la gestion du risque de taux
+    \item Des contraintes croissantes de conformité réglementaire nécessitant une approche plus sophistiquée
+\end{itemize}
+
+% Commentaire: Analyse des solutions existantes sur le marché et leurs limitations
+\section{Étude de l'existant}
+
+\subsection{Analyse des solutions similaires}
+Notre étude a porté sur deux solutions ALM couramment utilisées dans le secteur bancaire:
+
+\subsubsection{Solution A: Moody's Analytics ALM}
+\begin{itemize}
+    \item Points forts: Modélisation avancée, intégration avec les systèmes de notation, capacités de projection sophistiquées
+    \item Points faibles: Coût très élevé, complexité d'implémentation, personnalisation limitée
+\end{itemize}
+
+\subsubsection{Solution B: Oracle OFSA}
+\begin{itemize}
+    \item Points forts: Robustesse, large couverture fonctionnelle, évolutivité
+    \item Points faibles: Interface utilisateur datée, nécessité d'expertise spécifique, temps d'implémentation long
+\end{itemize}
+
+\subsection{Critique de l'existant}
+Les solutions actuellement disponibles sur le marché présentent plusieurs limitations pour le contexte spécifique de la BTE:
+\begin{itemize}
+    \item Inadéquation avec l'échelle et les besoins spécifiques d'une banque de taille moyenne
+    \item Difficulté d'adaptation au contexte réglementaire tunisien
+    \item Coûts prohibitifs de licence et d'implémentation
+    \item Complexité technique nécessitant des ressources spécialisées
+    \item Manque de flexibilité pour l'évolution future
+\end{itemize}
+
+% Commentaire: Présentation générale de la solution proposée et ses avantages
+\section{Solution Proposée}
+Notre proposition consiste en une solution ALM sur mesure, développée spécifiquement pour répondre aux besoins de la BTE. Cette solution se distingue par:
+\begin{itemize}
+    \item Une approche modulaire permettant une implémentation progressive
+    \item Une interface utilisateur moderne et intuitive adaptée aux utilisateurs métier
+    \item Des fonctionnalités spécifiquement conçues pour le marché tunisien
+    \item Un coût total de possession optimisé
+    \item Une architecture technique favorisant l'évolutivité et la maintenance
+\end{itemize}
+
+% Commentaire: Explication de la méthodologie de gestion de projet choisie
+\section{Méthodologie de Gestion de Projet}
+
+\subsection{Méthodologie Agile}
+Les méthodologies agiles se caractérisent par:
+\begin{itemize}
+    \item Développement itératif et incrémental
+    \item Priorité donnée à la collaboration client
+    \item Adaptabilité aux changements
+    \item Livraisons fréquentes de fonctionnalités
+\end{itemize}
+
+\subsection{Méthodes Classiques}
+Les approches traditionnelles (cycle en V, cascade) présentent:
+\begin{itemize}
+    \item Une planification détaillée en amont
+    \item Des phases séquentielles bien définies
+    \item Une documentation exhaustive
+    \item Un contrôle strict des modifications
+\end{itemize}
+
+\subsection{Méthodologie Adoptée}
+Pour ce projet, nous avons adopté la méthodologie SCRUM, une approche agile particulièrement adaptée au contexte, car elle:
+\begin{itemize}
+    \item Permet une grande réactivité face aux évolutions des besoins
+    \item Favorise l'implication continue des utilisateurs finaux
+    \item Offre une visibilité constante sur l'avancement
+    \item Réduit les risques par des livraisons progressives
+\end{itemize}
+
+\subsection{Présentation SCRUM}
+Le cadre SCRUM s'articule autour de:
+\begin{itemize}
+    \item Des rôles clairement définis: Product Owner, Scrum Master, Équipe de développement
+    \item Des événements structurants: Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective
+    \item Des artefacts clés: Product Backlog, Sprint Backlog, Incrément
+    \item Des cycles de développement courts (Sprints) de 2 à 4 semaines
+\end{itemize}
+
+% Planification et analyse des besoins
+\chapter{PLANIFICATION ET ANALYSE DES BESOINS}
+
+% Commentaire: Identification précise des besoins fonctionnels et non-fonctionnels
+\section{Analyse des besoins}
+
+\subsection{Identification des acteurs}
+Les principaux utilisateurs de la solution sont:
+\begin{itemize}
+    \item Responsables ALM: utilisateurs principaux gérant les analyses et rapports
+    \item Direction financière: exploitation des analyses pour la prise de décision
+    \item Équipe conformité: vérification des rapports réglementaires
+    \item Comité ALCO: utilisation des tableaux de bord pour le pilotage stratégique
+    \item Administrateurs système: gestion technique de la plateforme
+\end{itemize}
+
+\subsection{Besoins Fonctionnels}
+Les principales fonctionnalités requises sont:
+\begin{itemize}
+    \item Gestion des données financières
+        \begin{itemize}
+            \item Importation des données depuis les systèmes source
+            \item Validation et correction des anomalies
+            \item Historisation et versionnement
+        \end{itemize}
+    \item Analyse des risques
+        \begin{itemize}
+            \item Calcul des gaps de liquidité
+            \item Analyse de sensibilité aux taux d'intérêt
+            \item Modélisation des comportements clients
+        \end{itemize}
+    \item Reporting réglementaire
+        \begin{itemize}
+            \item Génération des rapports pour la banque centrale
+            \item Suivi des ratios prudentiels (LCR, NSFR)
+            \item Documentation des méthodologies
+        \end{itemize}
+    \item Simulations et projections
+        \begin{itemize}
+            \item Définition de scénarios de stress
+            \item Projections du bilan et des ratios
+            \item Analyse d'impact des décisions commerciales
+        \end{itemize}
+\end{itemize}
+
+\subsection{Besoins non fonctionnels}
+La solution doit satisfaire aux exigences suivantes:
+\begin{itemize}
+    \item Performance: temps de réponse rapide même avec de grands volumes de données
+    \item Sécurité: contrôle d'accès strict, traçabilité des actions, protection des données sensibles
+    \item Disponibilité: fonctionnement fiable avec un temps d'arrêt minimal
+    \item Évolutivité: capacité à intégrer de nouvelles fonctionnalités et s'adapter aux évolutions réglementaires
+    \item Utilisabilité: interface intuitive nécessitant une formation minimale
+    \item Intégration: connexion fluide avec les systèmes existants de la banque
+\end{itemize}
+
+% Commentaire: Modélisation technique des besoins avec les diagrammes UML appropriés
+\section{Modélisation des besoins}
+Pour traduire les besoins en spécifications techniques, nous avons utilisé plusieurs types de diagrammes UML:
+
+\subsection{Diagrammes de cas d'utilisation}
+Ces diagrammes illustrent les interactions entre les utilisateurs et le système, mettant en évidence les principales fonctionnalités attendues et les acteurs concernés.
+
+\subsection{Diagrammes de séquence}
+Ils détaillent les interactions chronologiques entre les composants du système pour les processus critiques comme l'importation de données ou la génération de rapports.
+
+\subsection{Diagrammes de classes}
+Ces diagrammes représentent la structure statique du système, montrant les entités principales et leurs relations.
+
+\subsection{Diagrammes d'activité}
+Ils modélisent les flux de travail complexes comme le processus de validation des données ou l'exécution des calculs ALM.
+
+% Commentaire: Description de la structure de la base de données
+\section{Structure de la base de données}
+La base de données relationnelle conçue pour la solution comprend plusieurs groupes de tables:
+\begin{itemize}
+    \item Tables de référence: contrats, clients, produits, taux de référence
+    \item Tables de paramétrage: modèles comportementaux, règles de calcul, hypothèses
+    \item Tables de données calculées: résultats d'analyse, indicateurs, projections
+    \item Tables système: utilisateurs, droits, journalisation, configuration
+\end{itemize}
+
+Un soin particulier a été apporté à l'optimisation du schéma pour garantir à la fois la cohérence des données, la performance des requêtes et la flexibilité pour les évolutions futures.
+
+% Commentaire: Détails sur l'application de la méthodologie Scrum au projet
+\section{Description de la méthodologie Scrum}
+
+\subsection{Équipe}
+L'équipe Scrum constituée pour ce projet comprend:
+\begin{itemize}
+    \item 1 Product Owner: représentant la direction financière de la BTE
+    \item 1 Scrum Master: facilitant le processus et supprimant les obstacles
+    \item 5 Développeurs: spécialistes backend, frontend et données
+    \item 2 Testeurs: assurant la qualité des livrables
+    \item Experts métier: consultants ponctuels sur les aspects ALM
+\end{itemize}
+
+\subsection{Backlog produit}
+Le Product Backlog initial comprend 87 user stories réparties en 6 épopées principales:
+\begin{itemize}
+    \item Gestion des données
+    \item Analyses de risque de liquidité
+    \item Analyses de risque de taux
+    \item Reporting réglementaire
+    \item Simulations et stress tests
+    \item Administration et sécurité
+\end{itemize}
+
+\subsection{Planification des sprints}
+Le projet a été structuré en 8 sprints de 3 semaines chacun:
+\begin{itemize}
+    \item Sprints 1-2: Infrastructure technique et fondations
+    \item Sprints 3-4: Gestion des données et imports
+    \item Sprints 5-6: Analyses et calculs ALM
+    \item Sprints 7-8: Reporting et tableaux de bord
+\end{itemize}
+
+Cette organisation permet des livraisons intermédiaires de valeur et une validation progressive par les utilisateurs.
+
+% Environnement de travail et technologies
+\chapter{ENVIRONNEMENT DE TRAVAIL ET TECHNOLOGIES}
+
+% Commentaire: Description de l'architecture technique choisie
+\section{Conception Architecturale}
+
+\subsection{Architecture Back-End}
+L'architecture backend repose sur:
+\begin{itemize}
+    \item FastAPI: framework Python asynchrone haute performance
+    \item PostgreSQL: système de gestion de base de données relationnelle
+    \item Redis: cache pour optimiser les performances
+    \item Celery: gestion des tâches asynchrones et calculs lourds
+    \item JWT: mécanisme d'authentification sécurisé
+\end{itemize}
+
+L'application suit une architecture en couches:
+\begin{itemize}
+    \item Couche API: endpoints REST pour l'interaction avec le frontend
+    \item Couche Services: logique métier et orchestration
+    \item Couche Repositories: accès aux données et persistence
+    \item Couche Calcul: algorithmes spécifiques ALM
+\end{itemize}
+
+\subsection{Architecture Front-End}
+Le frontend est construit avec:
+\begin{itemize}
+    \item React: bibliothèque JavaScript pour l'interface utilisateur
+    \item TypeScript: typage statique pour plus de robustesse
+    \item Tailwind CSS: framework utilitaire pour le stylage
+    \item React Query: gestion des requêtes et du cache
+    \item Plotly.js et Chart.js: visualisation de données
+    \item React Router: navigation entre les différentes sections
+\end{itemize}
+
+L'architecture suit le modèle des composants réutilisables avec une gestion d'état centralisée via React Context et des hooks personnalisés.
+
+% Commentaire: Description des outils logiciels et matériels utilisés
+\section{Environnement de travail}
+
+\subsection{Environnement matériel}
+Le développement a été réalisé sur:
+\begin{itemize}
+    \item Postes de développement: stations de travail haute performance
+    \item Serveur de développement: machine virtuelle dédiée
+    \item Serveur de test: environnement isolé reproduisant la production
+    \item Serveur de production: infrastructure sécurisée avec redondance
+\end{itemize}
+
+\subsection{Environnement logiciel}
+L'équipe a utilisé les outils suivants:
+\begin{itemize}
+    \item VSCode: éditeur principal avec extensions spécialisées
+    \item PyCharm: IDE Python pour le développement backend
+    \item Git: système de contrôle de version
+    \item Docker: conteneurisation pour les environnements cohérents
+    \item Postman: test des API REST
+    \item Jest et Pytest: frameworks de test
+\end{itemize}
+
+% Commentaire: Détail des technologies et outils spécifiques utilisés
+\section{Outils Technologiques}
+
+\subsection{Frameworks}
+\begin{itemize}
+    \item FastAPI: framework Python moderne pour le backend
+    \item React: bibliothèque JavaScript pour les interfaces utilisateur
+    \item Tailwind CSS: framework CSS utilitaire
+    \item SQLAlchemy: ORM pour l'accès à la base de données
+\end{itemize}
+
+\subsection{Bibliothèques et APIs}
+\begin{itemize}
+    \item NumPy et Pandas: manipulation et analyse de données
+    \item Plotly et Chart.js: visualisation de données
+    \item React Hook Form: gestion des formulaires
+    \item Axios: client HTTP pour les requêtes API
+    \item ShadCN: composants UI réutilisables
+    \item Mermaid: génération de diagrammes
+\end{itemize}
+
+\subsection{Cloud et SGBD}
+\begin{itemize}
+    \item PostgreSQL: base de données relationnelle principale
+    \item Redis: cache et file de messages
+    \item MinIO: stockage d'objets compatible S3
+    \item Nginx: serveur web et proxy inverse
+\end{itemize}
+
+\subsection{Contrôle de version}
+\begin{itemize}
+    \item Git: gestion des versions de code
+    \item GitHub: plateforme collaborative pour le code
+    \item GitLab CI/CD: intégration et déploiement continus
+\end{itemize}
+
+\subsection{Outils de gestion organisationnelle et de projet}
+\begin{itemize}
+    \item Jira: suivi des tâches et du backlog
+    \item Confluence: documentation collaborative
+    \item Slack: communication d'équipe
+    \item Figma: conception d'interface utilisateur
+\end{itemize}
+
+\chapter{CONCLUSION GÉNÉRALE}
+\addcontentsline{toc}{chapter}{CONCLUSION GÉNÉRALE}
+
+% Commentaire: Résumé des réalisations et des résultats obtenus
+\section*{Synthèse des réalisations}
+Le projet a permis de livrer une solution ALM moderne et adaptée aux besoins spécifiques de la Banque de Tunisie et des Émirats. Les principales réalisations comprennent:
+\begin{itemize}
+    \item Une plateforme intégrée couvrant l'ensemble du cycle de gestion actif-passif
+    \item Des tableaux de bord analytiques facilitant la prise de décision
+    \item Un système automatisé de génération de rapports réglementaires
+    \item Des outils de simulation permettant d'anticiper les évolutions du marché
+\end{itemize}
+
+% Commentaire: Analyse des difficultés rencontrées et des solutions apportées
+\section*{Défis et solutions}
+Le projet a présenté plusieurs défis significatifs:
+\begin{itemize}
+    \item Complexité des calculs ALM: résolue par l'optimisation des algorithmes et l'utilisation de calcul parallèle
+    \item Intégration avec les systèmes existants: facilitée par le développement d'adaptateurs spécifiques
+    \item Exigences réglementaires évolutives: adressées par une architecture flexible
+    \item Contraintes de performance: surmontées par une conception optimisée de la base de données et du cache
+\end{itemize}
+
+% Commentaire: Bénéfices apportés et perspectives futures
+\section*{Valeur ajoutée et perspectives}
+La mise en œuvre de cette solution apporte de nombreux bénéfices à la BTE:
+\begin{itemize}
+    \item Réduction significative du temps consacré à la production des rapports réglementaires
+    \item Amélioration de la précision des analyses et projections
+    \item Capacité accrue à anticiper et gérer les risques de bilan
+    \item Support à une allocation optimale des ressources financières
+\end{itemize}
+
+Les perspectives d'évolution incluent:
+\begin{itemize}
+    \item L'intégration de techniques d'intelligence artificielle pour l'analyse prédictive
+    \item L'extension vers une gestion plus fine du risque de crédit
+    \item Le développement d'interfaces avec les outils de trading
+    \item L'enrichissement des capacités de simulation de scénarios macroéconomiques
+\end{itemize}
+
+% Bibliographie
+\chapter*{BIBLIOGRAPHIE}
+\addcontentsline{toc}{chapter}{BIBLIOGRAPHIE}
+
+% Commentaire: Références bibliographiques utilisées
+\begin{thebibliography}{9}
+
+\bibitem{Basel} 
+Comité de Bâle sur le contrôle bancaire, 
+\textit{Bâle III: finalisation des réformes de l'après-crise}, 
+Banque des règlements internationaux, 
+2017.
+
+\bibitem{ALMTheory} 
+Bessis, J., 
+\textit{Risk Management in Banking}, 
+4e édition, Wiley, 
+2015.
+
+\bibitem{ReactDocs} 
+Facebook Inc., 
+\textit{Documentation officielle React}, 
+\url{https://reactjs.org/docs/getting-started.html}, 
+2022.
+
+\bibitem{FastAPIDocs} 
+Ramírez, S., 
+\textit{FastAPI - Documentation}, 
+\url{https://fastapi.tiangolo.com/}, 
+2022.
+
+\bibitem{ScrumGuide} 
+Schwaber, K. et Sutherland, J., 
+\textit{Le Guide Scrum}, 
+\url{https://scrumguides.org/}, 
+2020.
+
+\end{thebibliography}
+
+% Annexes
+\chapter*{ANNEXES}
+\addcontentsline{toc}{chapter}{ANNEXES}
+
+% Commentaire: Documentation technique complémentaire
+\section*{Annexe A: Glossaire des termes ALM}
+\begin{itemize}
+    \item \textbf{Gap de liquidité}: Différence entre actifs et passifs pour une période donnée
+    \item \textbf{Duration}: Mesure de la sensibilité d'un instrument financier aux variations de taux
+    \item \textbf{LCR (Liquidity Coverage Ratio)}: Ratio de couverture des besoins de liquidité à court terme
+    \item \textbf{NSFR (Net Stable Funding Ratio)}: Ratio de financement stable à long terme
+    \item \textbf{ALCO (Asset-Liability Committee)}: Comité chargé de la gestion actif-passif
+\end{itemize}
+
+% Commentaire: Exemples de visualisations et rapports générés par l'application
+\section*{Annexe B: Exemples de tableaux de bord}
+\begin{figure}[h]
+    \centering
+    \rule{10cm}{7cm} % Placeholder pour un graphique
+    \caption{Exemple de tableau de bord d'analyse de gap de liquidité}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \rule{10cm}{7cm} % Placeholder pour un graphique
+    \caption{Exemple de rapport d'évolution des ratios prudentiels}
+\end{figure}
+
+% Commentaire: Schémas techniques de l'architecture
+\section*{Annexe C: Diagrammes d'architecture}
+\begin{figure}[h]
+    \centering
+    \rule{12cm}{8cm} % Placeholder pour un diagramme
+    \caption{Architecture technique globale de la solution}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \rule{12cm}{8cm} % Placeholder pour un diagramme
+    \caption{Flux de données entre les composants du système}
+\end{figure}
+
+\end{document}
