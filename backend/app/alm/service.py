@@ -1,4 +1,3 @@
-
 from typing import List, Optional, Dict, Any
 from datetime import date, datetime
 import logging
@@ -13,17 +12,18 @@ from .models import (
     DataSource
 )
 
+# Configure logging
 logger = logging.getLogger(__name__)
 
 class ALMService:
-    """Service for handling Asset Liability Management operations"""
-    
+    """Service for handling Asset Liability Management (ALM) operations.  This class uses mock data for demonstration; a production system would connect to a database."""
+
     def __init__(self):
-        # In a real implementation, this would connect to a database
+        # Initialize mock data. In a real application, this would involve database connection.
         self.mock_data = self._initialize_mock_data()
-    
+
     def _initialize_mock_data(self) -> Dict[str, Any]:
-        """Initialize mock data for demonstration purposes"""
+        """Initialize mock data for demonstration purposes.  This creates sample assets, liabilities, scenarios, and risk appetite data."""
         today = date.today()
         return {
             "datasources": [
@@ -123,40 +123,37 @@ class ALMService:
                 )
             ]
         }
-    
+
     def get_datasources(self) -> List[DataSource]:
-        """Get all configured data sources"""
+        """Retrieve all configured data sources."""
         return self.mock_data["datasources"]
-    
+
     def extract_data(self, source_id: str, as_of_date: date) -> int:
-        """Extract data from a specific source"""
+        """Extract data from a specified source.  This is a placeholder; a real implementation would connect to the data source."""
         logger.info(f"Extracting data from source {source_id} as of {as_of_date}")
-        # In a real implementation, this would connect to the source and extract data
-        # Simulate successful extraction
-        return 150  # Number of extracted items
-    
+        # Simulate data extraction
+        return 150
+
     def get_assets(self, as_of_date: date, category: Optional[str] = None) -> List[AssetLiability]:
-        """Get all assets as of a specific date, optionally filtered by category"""
+        """Retrieve all assets as of a given date, optionally filtered by category."""
         assets = self.mock_data["assets"]
         if category:
             assets = [a for a in assets if a.category == category]
         return assets
-    
+
     def get_liabilities(self, as_of_date: date, category: Optional[str] = None) -> List[AssetLiability]:
-        """Get all liabilities as of a specific date, optionally filtered by category"""
+        """Retrieve all liabilities as of a given date, optionally filtered by category."""
         liabilities = self.mock_data["liabilities"]
         if category:
             liabilities = [l for l in liabilities if l.category == category]
         return liabilities
-    
+
     def perform_gap_analysis(self, request: GapAnalysisRequest) -> GapAnalysisResult:
-        """Perform gap analysis (static or dynamic)"""
-        # In a real implementation, this would calculate gaps based on actual data
-        # For demo, return a mock result
+        """Perform gap analysis (static or dynamic).  This is a simplified mock implementation."""
         assets = self.get_assets(request.as_of_date)
         liabilities = self.get_liabilities(request.as_of_date)
-        
-        # Mock calculation for demonstration
+
+        # Mock gap calculation
         assets_by_bucket = [1000000, 800000, 600000, 400000]
         liabilities_by_bucket = [800000, 700000, 500000, 300000]
         gap_by_bucket = [a - l for a, l in zip(assets_by_bucket, liabilities_by_bucket)]
@@ -165,7 +162,7 @@ class ALMService:
         for gap in gap_by_bucket:
             running_sum += gap
             cumulative_gap.append(running_sum)
-        
+
         return GapAnalysisResult(
             as_of_date=request.as_of_date,
             time_buckets=request.time_buckets,
@@ -176,24 +173,22 @@ class ALMService:
             is_dynamic=request.is_dynamic,
             scenario_details={"name": "Base Scenario"} if request.scenario_id else None
         )
-    
+
     def get_stress_test_scenarios(self, risk_type: Optional[RiskType] = None) -> List[StressTestScenario]:
-        """Get all stress test scenarios, optionally filtered by risk type"""
+        """Retrieve all stress test scenarios, optionally filtered by risk type."""
         scenarios = self.mock_data["scenarios"]
         if risk_type:
             scenarios = [s for s in scenarios if s.risk_type == risk_type]
         return scenarios
-    
+
     def run_stress_test(self, scenario_id: str, as_of_date: date) -> StressTestResult:
-        """Run a stress test based on a specific scenario"""
-        # Find the scenario
+        """Run a stress test based on a specific scenario. This is a placeholder; a production system would perform complex calculations."""
         scenarios = self.mock_data["scenarios"]
         scenario = next((s for s in scenarios if s.id == scenario_id), None)
         if not scenario:
             raise ValueError(f"Scenario with ID {scenario_id} not found")
-        
-        # In a real implementation, this would apply the scenario to the data
-        # For demo, return a mock result
+
+        # Mock stress test results
         return StressTestResult(
             scenario_id=scenario_id,
             run_date=datetime.now(),
@@ -206,24 +201,20 @@ class ALMService:
             affected_liabilities=["L001", "L002"],
             report_summary=f"Stress test for scenario '{scenario.name}' shows moderate impact on capital and NII."
         )
-    
+
     def get_risk_appetite(self, risk_type: Optional[RiskType] = None) -> List[RiskAppetite]:
-        """Get current risk appetite thresholds and values"""
+        """Retrieve current risk appetite thresholds and values."""
         risk_appetites = self.mock_data["risk_appetite"]
         if risk_type:
             risk_appetites = [r for r in risk_appetites if r.risk_type == risk_type]
         return risk_appetites
-    
+
     def generate_regulatory_report(self, report_type: str, as_of_date: date, format: str) -> str:
-        """Generate a regulatory report"""
-        # In a real implementation, this would create the actual report
-        # For demo, return a mock URL
+        """Generate a regulatory report. This is a placeholder;  a real implementation would generate a report file."""
         report_name = f"{report_type}_{as_of_date.strftime('%Y%m%d')}.{format}"
         return f"/reports/regulatory/{report_name}"
-    
+
     def generate_alco_report(self, as_of_date: date, format: str) -> str:
-        """Generate an ALCO (Asset Liability Committee) report"""
-        # In a real implementation, this would create the actual report
-        # For demo, return a mock URL
+        """Generate an ALCO (Asset Liability Committee) report. This is a placeholder; a real implementation would generate a report file."""
         report_name = f"alco_{as_of_date.strftime('%Y%m%d')}.{format}"
         return f"/reports/alco/{report_name}"

@@ -33,13 +33,18 @@ export function FeatureSection({}: Props) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Create a responsive grid layout that changes columns based on screen size */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Map through each feature in the features array and create a card for it */}
           {features.map((feature, index) => (
+            // Card component with hover effect - key is required for React lists
             <Card key={index} className="border border-gray-200 hover:shadow-lg transition-shadow duration-300">
               <CardHeader>
+                {/* Display the feature title */}
                 <CardTitle>{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
+                {/* Display the feature description with gray text */}
                 <CardDescription className="text-gray-600">
                   {feature.description}
                 </CardDescription>

@@ -1,179 +1,113 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+// src/utils/auth.ts
+// This file contains authentication-related utility functions for the frontend
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  institution: string;
-}
-
-interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  error: string | null;
-  
-  // Actions
-  login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, institution: string, password: string) => Promise<void>;
-  logout: () => void;
-}
-
-// For development, we'll use a simple predefined user list
-const USERS_STORAGE_KEY = 'prism_alm_users';
-
-interface StoredUser extends User {
+// Type definition for login credentials
+interface LoginCredentials {
+  username: string;
   password: string;
 }
 
-// Helper functions for local user management
-const getStoredUsers = (): StoredUser[] => {
-  const usersJson = localStorage.getItem(USERS_STORAGE_KEY);
-  return usersJson ? JSON.parse(usersJson) : [];
-};
-
-const saveUser = (user: StoredUser): void => {
-  const users = getStoredUsers();
-  const existingUserIndex = users.findIndex(u => u.email === user.email);
-  
-  if (existingUserIndex >= 0) {
-    users[existingUserIndex] = user;
-  } else {
-    users.push(user);
-  }
-  
-  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-};
-
-const findUserByEmail = (email: string): StoredUser | undefined => {
-  const users = getStoredUsers();
-  return users.find(user => user.email === email);
-};
-
-export const useAuthStore = create<AuthState>(
-  persist(
-    (set) => ({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
-      error: null,
-      
-      login: async (email, password) => {
-        set({ isLoading: true, error: null });
-        
-        try {
-          // Simulate API delay
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          const user = findUserByEmail(email);
-          
-          if (!user || user.password !== password) {
-            throw new Error('Invalid email or password');
-          }
-          
-          const { password: _, ...userWithoutPassword } = user;
-          
-          set({
-            isLoading: false,
-            isAuthenticated: true,
-            user: userWithoutPassword,
-          });
-        } catch (error) {
-          set({
-            isLoading: false,
-            error: error instanceof Error ? error.message : 'An unknown error occurred',
-          });
-          throw error;
-        }
-      },
-      
-      signup: async (name, email, institution, password) => {
-        set({ isLoading: true, error: null });
-        
-        try {
-          // Simulate API delay
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          const existingUser = findUserByEmail(email);
-          
-          if (existingUser) {
-            throw new Error('User with this email already exists');
-          }
-          
-          const newUser: StoredUser = {
-            id: `user-${Date.now()}`,
-            name,
-            email,
-            institution,
-            password,
-          };
-          
-          saveUser(newUser);
-          
-          const { password: _, ...userWithoutPassword } = newUser;
-          
-          set({
-            isLoading: false,
-            isAuthenticated: true,
-            user: userWithoutPassword,
-          });
-        } catch (error) {
-          set({
-            isLoading: false,
-            error: error instanceof Error ? error.message : 'An unknown error occurred',
-          });
-          throw error;
-        }
-      },
-      
-      logout: () => {
-        set({
-          user: null,
-          isAuthenticated: false,
-          error: null,
-        });
-      },
-    }),
-    {
-      name: 'prism-alm-auth',
-      // Only store non-sensitive info in localStorage
-      partialize: (state) => ({ 
-        user: state.user,
-        isAuthenticated: state.isAuthenticated,
-      }),
-    }
-  )
-);
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
-interface AuthState {
-  token: string | null;
-  isAuthenticated: boolean;
-  login: (token: string) => void;
-  logout: () => void;
+// Type definition for the token response from the API
+interface TokenResponse {
+  access_token: string;  // JWT token for authentication
+  token_type: string;    // Token type (usually "bearer")
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      token: null,
-      isAuthenticated: false,
-      login: (token: string) => set({ token, isAuthenticated: true }),
-      logout: () => set({ token: null, isAuthenticated: false }),
-    }),
-    {
-      name: 'auth-storage',
-    }
-  )
-);
+// Type definition for user data
+interface User {
+  username: string;     // User's username
+  email: string;        // User's email
+  full_name: string;    // User's full name
+  is_active: boolean;   // Whether the user account is active
+}
 
-// Helper function to get auth headers
-export const getAuthHeaders = () => {
-  const { token } = useAuthStore.getState();
-  return {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  };
+// Get API URL from environment variables or use localhost default
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+/**
+ * Login function - sends credentials to the API and returns a token
+ * 
+ * @param credentials - Object containing username and password
+ * @returns Promise resolving to token response
+ * @throws Error if login fails
+ */
+export const login = async (credentials: LoginCredentials): Promise<TokenResponse> => {
+  // Create form data in the format expected by OAuth2 password flow
+  const formData = new URLSearchParams();
+  formData.append('username', credentials.username);
+  formData.append('password', credentials.password);
+
+  // Make POST request to the login endpoint
+  const response = await fetch(`${API_URL}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded', // Required for OAuth2 password flow
+    },
+    body: formData.toString(),
+  });
+
+  // Handle error response
+  if (!response.ok) {
+    throw new Error('Login failed');
+  }
+
+  // Parse response JSON
+  const data: TokenResponse = await response.json();
+
+  // Store token in browser's localStorage for persistent sessions
+  localStorage.setItem('token', data.access_token);
+
+  return data;
+};
+
+/**
+ * Get current user data from the API
+ * 
+ * @returns Promise resolving to user data
+ * @throws Error if not authenticated or fetch fails
+ */
+export const getUser = async (): Promise<User> => {
+  // Get token from localStorage
+  const token = localStorage.getItem('token');
+
+  // Check if token exists
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+
+  // Make request to get user data with the token
+  const response = await fetch(`${API_URL}/auth/users/me`, {
+    headers: {
+      'Authorization': `Bearer ${token}`, // Include token in Authorization header
+    },
+  });
+
+  // Handle errors
+  if (!response.ok) {
+    if (response.status === 401) {
+      // Token expired or invalid - clear it
+      localStorage.removeItem('token');
+      throw new Error('Authentication token expired');
+    }
+    throw new Error('Failed to fetch user data');
+  }
+
+  // Parse and return user data
+  return await response.json();
+};
+
+/**
+ * Check if user is authenticated by verifying token existence
+ * 
+ * @returns boolean indicating whether user is authenticated
+ */
+export const isAuthenticated = (): boolean => {
+  return localStorage.getItem('token') !== null;
+};
+
+/**
+ * Logout the user by removing the token
+ */
+export const logout = (): void => {
+  localStorage.removeItem('token');
 };

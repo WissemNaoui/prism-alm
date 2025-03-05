@@ -1,107 +1,102 @@
+// src/components/Login.tsx
+// This component renders the login form for user authentication
 
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../utils/auth';
+// Import UI components from shadcn library
+import { Button } from '../extensions/shadcn/components/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../extensions/shadcn/components/card';
+import { Input } from '../extensions/shadcn/components/input';
+import { Label } from '../extensions/shadcn/components/label';
 
-export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { login } = useAuthStore();
+export function Login() {
+  // State variables for form inputs and UI state
+  const [username, setUsername] = useState(''); // State for username input
+  const [password, setPassword] = useState(''); // State for password input
+  const [error, setError] = useState('');       // State for error messages
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
-  // Get the page the user was trying to access before being redirected to login
-  const from = location.state?.from?.pathname || '/dashboard';
-
+  /**
+   * Handle form submission
+   * @param e - Form event
+   */
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setIsLoading(true);
+    e.preventDefault(); // Prevent default form submission
+    setError(''); // Clear any existing errors
+    setIsLoading(true); // Show loading state
 
     try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('password', password);
-
-      const response = await fetch('/api/auth/token', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Login failed');
-      }
-
-      const data = await response.json();
-      login(data.access_token);
-      navigate(from, { replace: true });
-    } catch (err: any) {
-      setError(err.message);
+      // Attempt to log in with provided credentials
+      await login({ username, password });
+      // If successful, navigate to dashboard
+      navigate('/dashboard');
+    } catch (err) {
+      // If login fails, show error message
+      setError('Invalid username or password');
+      console.error('Login error:', err);
     } finally {
+      // Always reset loading state when done
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Asset Liability Management
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Banque de Tunisie et des Emirats (BTE)
+    // Container with full height and centered content
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      {/* Card component for the login form */}
+      <Card className="w-full max-w-md">
+        {/* Card header with title and description */}
+        <CardHeader>
+          <CardTitle className="text-2xl text-center">Login to ALM Dashboard</CardTitle>
+          <CardDescription className="text-center">
+            Enter your credentials to access the Asset Liability Management system
+          </CardDescription>
+        </CardHeader>
+        {/* Card content containing the form */}
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <div className="grid gap-4">
+              {/* Username input field */}
+              <div className="grid gap-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  placeholder="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)} // Update state on input change
+                  required // Make field required
+                />
+              </div>
+              {/* Password input field */}
+              <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password" // Use password type to mask input
+                  placeholder="********"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} // Update state on input change
+                  required // Make field required
+                />
+              </div>
+              {/* Conditional error message display */}
+              {error && <p className="text-sm text-red-500">{error}</p>}
+              {/* Submit button with loading state */}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? 'Logging in...' : 'Login'}
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+        {/* Card footer with demo credentials info */}
+        <CardFooter className="flex flex-col">
+          <p className="text-sm text-gray-500 text-center mt-2">
+            Use 'admin' with password 'password' for demo access.
           </p>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-              <span className="block sm:inline">{error}</span>
-            </div>
-          )}
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="username" className="sr-only">Username</label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              {isLoading ? 'Logging in...' : 'Sign in'}
-            </button>
-          </div>
-        </form>
-      </div>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

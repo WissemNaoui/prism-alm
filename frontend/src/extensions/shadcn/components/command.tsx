@@ -54,43 +54,60 @@ const CommandInput = React.forwardRef<
 
 CommandInput.displayName = CommandPrimitive.Input.displayName;
 
+// Define CommandList component - renders a scrollable list of command items
 const CommandList = React.forwardRef<
+  // Type for the ref - references the CommandPrimitive.List element
   React.ElementRef<typeof CommandPrimitive.List>,
+  // Props type - includes all props from CommandPrimitive.List
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
 >(({ className, ...props }, ref) => (
+  // Render the CommandPrimitive.List with our styles and props
   <CommandPrimitive.List
-    ref={ref}
+    ref={ref} // Pass the ref to the primitive component
+    // Apply styles for a scrollable list with max height
     className={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)}
-    {...props}
+    {...props} // Spread any remaining props
   />
 ));
 
+// Set a display name for debugging and React DevTools
 CommandList.displayName = CommandPrimitive.List.displayName;
 
+// Define CommandEmpty component - shows when no results are found
 const CommandEmpty = React.forwardRef<
+  // Type for the ref - references the CommandPrimitive.Empty element
   React.ElementRef<typeof CommandPrimitive.Empty>,
+  // Props type - includes all props from CommandPrimitive.Empty 
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>
 >((props, ref) => (
+  // Render the CommandPrimitive.Empty with our styles and props
   <CommandPrimitive.Empty
-    ref={ref}
+    ref={ref} // Pass the ref to the primitive component
+    // Apply styles for centered empty state message
     className="py-6 text-center text-sm"
-    {...props}
+    {...props} // Spread any remaining props
   />
 ));
 
+// Set a display name for debugging and React DevTools
 CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
 
+// Define CommandGroup component - for grouping related command items
 const CommandGroup = React.forwardRef<
+  // Type for the ref - references the CommandPrimitive.Group element
   React.ElementRef<typeof CommandPrimitive.Group>,
+  // Props type - includes all props from CommandPrimitive.Group
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>
 >(({ className, ...props }, ref) => (
+  // Render the CommandPrimitive.Group with our styles and props
   <CommandPrimitive.Group
-    ref={ref}
+    ref={ref} // Pass the ref to the primitive component
+    // Apply styles with special handling for group headings using CSS attribute selectors
     className={cn(
       "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
-      className,
+      className, // Add any user-provided classes
     )}
-    {...props}
+    {...props} // Spread any remaining props
   />
 ));
 

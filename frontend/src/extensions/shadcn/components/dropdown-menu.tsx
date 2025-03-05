@@ -42,19 +42,31 @@ const DropdownMenuSubTrigger = React.forwardRef<
 DropdownMenuSubTrigger.displayName =
   DropdownMenuPrimitive.SubTrigger.displayName;
 
+// Define the SubContent component for dropdown submenus using React.forwardRef
 const DropdownMenuSubContent = React.forwardRef<
+  // Type for the ref - references the DropdownMenuPrimitive.SubContent element
   React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+  // Props type - includes all props from DropdownMenuPrimitive.SubContent
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
+  // Render the DropdownMenuPrimitive.SubContent with our styles and props
   <DropdownMenuPrimitive.SubContent
-    ref={ref}
+    ref={ref} // Pass the ref to the primitive component
+    // Combine default styles with user-provided classes
     className={cn(
+      // Base styles for dropdown submenu content with animations and positioning variants:
+      // - z-50 ensures high stacking order (appears above other content)
+      // - min-width and overflow handling
+      // - styling for borders, background, shadows
+      // - data attributes for animation states (open/closed)
+      // - positioning animations based on which side the menu appears
       "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className,
+      className, // Add any user-provided classes
     )}
-    {...props}
+    {...props} // Spread any remaining props
   />
 ));
+// Set a display name for debugging and React DevTools
 DropdownMenuSubContent.displayName =
   DropdownMenuPrimitive.SubContent.displayName;
 

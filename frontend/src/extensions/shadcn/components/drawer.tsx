@@ -1,33 +1,49 @@
+// Import React for JSX and component creation
 import * as React from "react";
+// Import the Drawer component from the vaul library which provides drawer functionality
 import { Drawer as DrawerPrimitive } from "vaul";
 
+// Import utility function for combining class names
 import { cn } from "@/lib/utils";
 
+// Define our custom Drawer component that wraps the vaul Drawer
+// Sets default behavior for scaling the background when drawer opens
 const Drawer = ({
-  shouldScaleBackground = true,
-  ...props
+  shouldScaleBackground = true, // Default to true - scales the background content when drawer opens
+  ...props // Spread all other props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
+  // Render the DrawerPrimitive.Root with our default props and any user props
   <DrawerPrimitive.Root
     shouldScaleBackground={shouldScaleBackground}
     {...props}
   />
 );
+// Set a display name for debugging and React DevTools
 Drawer.displayName = "Drawer";
 
+// Re-export the Trigger component - used to create the element that opens the drawer
 const DrawerTrigger = DrawerPrimitive.Trigger;
 
+// Re-export the Portal component - renders drawer content at the root of the DOM tree
 const DrawerPortal = DrawerPrimitive.Portal;
 
+// Re-export the Close component - used to create elements that close the drawer
 const DrawerClose = DrawerPrimitive.Close;
 
+// Define our custom DrawerOverlay component with React.forwardRef
+// This creates the semi-transparent overlay behind the drawer
 const DrawerOverlay = React.forwardRef<
+  // Type for the ref - references the DrawerPrimitive.Overlay element
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
+  // Props type - includes all props from DrawerPrimitive.Overlay
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
+  // Render the DrawerPrimitive.Overlay with our styles and props
   <DrawerPrimitive.Overlay
-    ref={ref}
+    ref={ref} // Pass the ref to the primitive component
+    // Apply overlay styles - fixed position, covers the entire screen, high z-index, semi-transparent black
     className={cn("fixed inset-0 z-50 bg-black/80", className)}
-    {...props}
+    {...props} // Spread any remaining props
   />
 ));
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
