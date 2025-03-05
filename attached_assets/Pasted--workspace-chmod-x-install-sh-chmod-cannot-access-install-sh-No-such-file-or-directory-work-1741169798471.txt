@@ -1,0 +1,57 @@
+~/workspace$ chmod +x install.sh
+chmod: cannot access 'install.sh': No such file or directory
+~/workspace$ cd frontend/
+~/workspace/frontend$ chmod +x install.sh
+~/workspace/frontend$ chmod +x run.sh
+~/workspace/frontend$ ./install.sh
+Internal Error: EACCES: permission denied, symlink '../../wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/pnpm.js' -> '/nix/store/rrz8cqhldyl17bbs60g7d8vbaadkxc40-nodejs-20.18.1-wrapped/bin/pnpm'
+    at async Object.symlink (node:internal/fs/promises:1000:10)
+    at async EnableCommand.generatePosixLink (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:22608:5)
+    at async Promise.all (index 0)
+    at async EnableCommand.execute (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:22595:5)
+    at async EnableCommand.validateAndExecute (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:19835:22)
+    at async _Cli.run (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:20772:18)
+    at async Object.runMain (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:23091:19)
+error This project's package.json defines "packageManager": "yarn@4.0.2". However the current global version of Yarn is 1.22.22.
+
+Presence of the "packageManager" field indicates that the project is meant to be used with Corepack, a tool included by default with all official Node.js distributions starting from 16.9 and 14.19.
+Corepack must currently be enabled by running corepack enable in your terminal. For more information, check out https://yarnpkg.com/corepack.
+error This project's package.json defines "packageManager": "yarn@4.0.2". However the current global version of Yarn is 1.22.22.
+
+Presence of the "packageManager" field indicates that the project is meant to be used with Corepack, a tool included by default with all official Node.js distributions starting from 16.9 and 14.19.
+Corepack must currently be enabled by running corepack enable in your terminal. For more information, check out https://yarnpkg.com/corepack.
+error This project's package.json defines "packageManager": "yarn@4.0.2". However the current global version of Yarn is 1.22.22.
+
+Presence of the "packageManager" field indicates that the project is meant to be used with Corepack, a tool included by default with all official Node.js distributions starting from 16.9 and 14.19.
+Corepack must currently be enabled by running corepack enable in your terminal. For more information, check out https://yarnpkg.com/corepack.
+~/workspace/frontend$ corepack enable
+Internal Error: EACCES: permission denied, symlink '../../wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/pnpm.js' -> '/nix/store/rrz8cqhldyl17bbs60g7d8vbaadkxc40-nodejs-20.18.1-wrapped/bin/pnpm'
+    at async Object.symlink (node:internal/fs/promises:1000:10)
+    at async EnableCommand.generatePosixLink (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:22608:5)
+    at async Promise.all (index 0)
+    at async EnableCommand.execute (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:22595:5)
+    at async EnableCommand.validateAndExecute (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:19835:22)
+    at async _Cli.run (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:20772:18)
+    at async Object.runMain (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:23091:19)
+~/workspace/frontend$ chmod +x install.sh && ./install.sh
+Internal Error: EACCES: permission denied, symlink '../../wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/pnpm.js' -> '/nix/store/rrz8cqhldyl17bbs60g7d8vbaadkxc40-nodejs-20.18.1-wrapped/bin/pnpm'
+    at async Object.symlink (node:internal/fs/promises:1000:10)
+    at async EnableCommand.generatePosixLink (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:22608:5)
+    at async Promise.all (index 0)
+    at async EnableCommand.execute (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:22595:5)
+    at async EnableCommand.validateAndExecute (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:19835:22)
+    at async _Cli.run (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:20772:18)
+    at async Object.runMain (/nix/store/wfxq6w9bkp5dcfr8yb6789b0w7128gnb-nodejs-20.18.1/lib/node_modules/corepack/dist/lib/corepack.cjs:23091:19)
+error This project's package.json defines "packageManager": "yarn@4.0.2". However the current global version of Yarn is 1.22.22.
+
+Presence of the "packageManager" field indicates that the project is meant to be used with Corepack, a tool included by default with all official Node.js distributions starting from 16.9 and 14.19.
+Corepack must currently be enabled by running corepack enable in your terminal. For more information, check out https://yarnpkg.com/corepack.
+error This project's package.json defines "packageManager": "yarn@4.0.2". However the current global version of Yarn is 1.22.22.
+
+Presence of the "packageManager" field indicates that the project is meant to be used with Corepack, a tool included by default with all official Node.js distributions starting from 16.9 and 14.19.
+Corepack must currently be enabled by running corepack enable in your terminal. For more information, check out https://yarnpkg.com/corepack.
+error This project's package.json defines "packageManager": "yarn@4.0.2". However the current global version of Yarn is 1.22.22.
+
+Presence of the "packageManager" field indicates that the project is meant to be used with Corepack, a tool included by default with all official Node.js distributions starting from 16.9 and 14.19.
+Corepack must currently be enabled by running corepack enable in your terminal. For more information, check out https://yarnpkg.com/corepack.
+~/workspace/frontend$ 
