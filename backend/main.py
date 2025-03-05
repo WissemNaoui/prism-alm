@@ -3,6 +3,9 @@ import pathlib
 import json
 import dotenv
 from fastapi import FastAPI, APIRouter, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from app.alm.router import router as alm_router
+from app.auth.router import router as auth_router
 
 dotenv.load_dotenv()
 
@@ -76,8 +79,20 @@ def get_firebase_config() -> dict | None:
 
 def create_app() -> FastAPI:
     """Create the app. This is called by uvicorn with the factory option to construct the app object."""
-    app = FastAPI()
+    app = FastAPI(title="BTE ALM Solution", description="Asset Liability Management solution for Banque de Tunisie et des Emirats")
     app.include_router(import_api_routers())
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # Register routers
+    app.include_router(auth_router)
+    app.include_router(alm_router)
 
     for route in app.routes:
         if hasattr(route, "methods"):
@@ -103,3 +118,11 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+
+@app.get("/", tags=["Health Check"])
+async def root():
+    return {
+        "status": "online",
+        "message": "BTE ALM Solution API is running",
+        "version": "1.0.0"
+    }
